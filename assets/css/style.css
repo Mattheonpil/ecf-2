@@ -1,0 +1,60 @@
+
+
+/* polices : */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Londrina+Solid:wght@100;300;400;900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+/* font-family: "Inter", serif;
+font-optical-sizing: auto;
+font-weight: <weight>;
+font-style: normal; 
+police  defaut */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=La+Belle+Aurore&family=Londrina+Solid:wght@100;300;400;900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+/* font-family: "La Belle Aurore", serif;
+font-weight: 400;
+font-style: normal;
+texte message */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Liu+Jian+Mao+Cao&display=swap');
+/* font-family: "Liu Jian Mao Cao", serif;
+  font-weight: 400;
+  font-style: normal;
+  signature */
+
+    /* couleurs:
+
+    --tropical-indigo:    #9381ffff
+    --periwinkle:    #b8b8ffff
+    --ghost-white:    #f8f7ffff
+    --antique-white:    #ffeeddff
+    --apricot:    #ffd8beff */
+    * {
+      margin: 0;
+      padding: 0;
+  }
+
+
+
+  :root{
+
+    --font-article : "La Belle Aurore" ;
+    --font-signature : "Liu Jian Mao Cao";
+    --font-global : "Inter";
+
+    --trait : 
+
+
+  }
+
+  hr {
+    
+    color: #ffd8beff;
+  }
+
+  .border-col {
+    border-color: #ffd8beff;
+  }
+
+
+
+
