@@ -1,9 +1,18 @@
 <?php
 session_start();
+
+// if (!isset($_SESSION['id_user'])) {
+//     header("Location: connexion.php"); // Rediriger vers la page de connexion si non connecté
+//     exit();
+// }
+
+// Afficher le contenu de la page d'accueil
+// echo "Bienvenue sur la page d'accueil !";
 ?>
 <?php
-
 include_once ('connexion-bdd.php');
+
+// query car pas de variable à l'intérieur de la requête, sinon, prepare et execute
 
 $req = $bdd->query('SELECT  DATE_FORMAT(creation_date, "Créé le %d/%m/%Y") AS date_aff, 
                             content, firstname, name 
@@ -11,6 +20,7 @@ $req = $bdd->query('SELECT  DATE_FORMAT(creation_date, "Créé le %d/%m/%Y") AS 
                     WHERE a.id_user = u.id_user 
                     ORDER by creation_date DESC;');
 
+// var_dump($req);
 ?>
 
 
@@ -19,31 +29,32 @@ $req = $bdd->query('SELECT  DATE_FORMAT(creation_date, "Créé le %d/%m/%Y") AS 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Livre d'or | Accueil</title>
+    <title>Livre d'or</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/css/style.css">
 
 </head>
 <body>
 
-  <header class= "container-fluid backgrund-sp">
-    <div class="container">
-    <div class= "row pt-3">
-        <div class= "col-8 text-center">
-            <h1 class="fw-bold fst-italic text-white">Polochon & <span class="d-none"><br></span> Couette</h1>
+<header class= "container-fluid">
+    <div class= "container">
+    <div class= "row">
+        <div class= "col-8 text-center ">
+            <h1>Polochon & Couette</h1>
         </div>
-        <div class= "col-4 text-center">
-            <h4 class="pt-1 fst-italic text-white">le 16 janvier 2025</h4>
+        <div class= "col-4 text-center ">
+            <h3>le 16 janvier 2025</h3>
         </div>
     </div>
-    
-     <div id="trait"></div>
-    
-    <nav class="navbar navbar-expand-lg">
+    <div>
+    <hr class="hr hr-blurry border  " />
+    </div>
+
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
       <div class="container-fluid">
-        <span class="navbar fs-6 text-color1 text-center">FAITES NOUS PART DE <span class="d-md-none"><br></span> VOS SOUVENIRS</span>
+        <h2 class="navbar-brand">FAITES NOUS PART DE VOS SOUVENIRS</h2>
         <button
-          class="navbar-toggler button-myborder"
+          class="navbar-toggler"
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#navbarNav"
@@ -58,29 +69,28 @@ $req = $bdd->query('SELECT  DATE_FORMAT(creation_date, "Créé le %d/%m/%Y") AS 
 
        
           <ul class="navbar-nav w-100 justify-content-end">
-            <li class="nav-item  d-flex justify-content-end ">
-              <a class="nav-link couleur-menu" aria-current="page" href="#">Accueil</a>
+            <li class="nav-item">
+              <a class="nav-link active d-flex justify-content-end" aria-current="page" href="#">Accueil</a>
             </li>
             <?php if (isset($_SESSION['id_user'])) { ?>
             <li class="nav-item d-flex justify-content-end">
-              <a class="nav-link text-white" href="messages.php">Mes messages</a>
+              <a class="nav-link" href="messages.php">Mes messages</a>
             </li>
             <li class="nav-item d-flex justify-content-end">
-              <a class="nav-link text-white" href="deconnexion.php">Se déconnecter</a>
+              <a class="nav-link" href="deconnexion.php">Se déconnecter</a>
             </li>
             <?php } else { ?>
             <li class="nav-item d-flex justify-content-end">
-              <a class="nav-link text-white" href="connexion.php">Se connecter</a>
+              <a class="nav-link " href="connexion.php">Se connecter</a>
             </li>
             <li class="nav-item d-flex justify-content-end">
-              <a class="nav-link text-white" href="inscription.php">S'inscrire</a>
+              <a class="nav-link " href="inscription.php">S'inscrire</a>
             </li>
             <?php } ?>
           </ul>
         </div>
       </div>
     </nav>
-    </header>
 
     <main class="container text-center">
 
@@ -90,32 +100,29 @@ $req = $bdd->query('SELECT  DATE_FORMAT(creation_date, "Créé le %d/%m/%Y") AS 
       <?php
         while($article = $req->fetch(PDO::FETCH_ASSOC)){
     ?>
-        
-          <article class="col-md-6 col-xl-4" >
-          <div class="container d-flex justify-content-center pt-4 ">
-            <div id="card0">
-                <div id="card" class="shadow">
-                    <div id="card2" class="rounded-1 overflow-auto">
-                      <p class="p-1 text-start"><?= $article['date_aff'] ?></p>
-                      <p id="article-content"><?= $article['content'] ?></p>
-                          <div class="d-flex justify-content-center p-2">
-                                    <p class=" pe-2 part">De la part de </p>
-                                    <p class="signature"><?= $article['firstname'] ." ". $article['name']?></p>
-                          </div>
-                    </div>
-                </div>
+        <div class="col-4">
+          <article>
+            <p><?= $article['date_aff'] ?></p>
+            <p><?= $article['content'] ?></p>
+            <div>
+              <p>De la part de </p>
+              <p><?= $article['firstname'] . $article['name']?></p>
             </div>
-        </div>
-
-
-            
           </article>
-   
+</div>
 
- <?php
+<?php
         }
     ?>
-       
+        <div class="col-4">
+          <article>
+            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Natus, quibusdam? Vel est ullam officia voluptatem amet enim nesciunt ducimus quam sunt laborum harum reprehenderit cumque expedita voluptate eligendi deleniti quae mollitia doloribus dolores delectus, veritatis quas consectetur? Non nulla, alias totam nam, eum mollitia unde ullam cupiditate impedit itaque esse!</p>
+            <div>
+              <p></p>
+              <p></p>
+            </div>
+          </article>
+          </div>
 
 
       </section>
@@ -125,8 +132,8 @@ $req = $bdd->query('SELECT  DATE_FORMAT(creation_date, "Créé le %d/%m/%Y") AS 
 
 
 
-   
-
+    </div>
+</header>
 
 
   
@@ -134,7 +141,7 @@ $req = $bdd->query('SELECT  DATE_FORMAT(creation_date, "Créé le %d/%m/%Y") AS 
 
 
 
- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
- </body>
- </html>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -28,8 +28,6 @@ texte message */
     --ghost-white:    #f8f7ffff
     --antique-white:    #ffeeddff
     --apricot:    #ffd8beff */
-/* dégradé_gd : background: linear-gradient(90deg, rgba(112,98,207,1) 0%, rgba(210,205,241,1) 16%, rgba(184,184,255,1) 100%);  */
-
     * {
       margin: 0;
       padding: 0;
@@ -43,26 +41,9 @@ texte message */
     --font-signature : "Liu Jian Mao Cao";
     --font-global : "Inter";
 
-    --trait :
-  }
+    --trait : 
 
-  .backgrund-sp {
-    background: linear-gradient(0deg, rgba(184,184,255,1) 0%, rgba(138,129,255,1) 100%); 
-  }
 
-  .text-color1 {
-    color: #FFEEDD;
-  }
- 
-
-  .button-myborder {
-    border-color: rgb(255, 255, 255);
-   
-  }
-
-  .navbar-toggler-icon {
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
-    border-color: rgb(255, 255, 255);
   }
 
   hr {
@@ -70,121 +51,9 @@ texte message */
     color: #ffd8beff;
   }
 
-
-  #card0 {
-    width: 350px;
-    height: 200px;
-    /* width: 35vw;
-    height: 20vw; */
-    display: flex;
-    align-items: center;
-   border-radius: 0.8em;
-    background: linear-gradient(273deg, rgba(112,98,207,1) 0%, rgba(210,205,241,1) 16%, rgba(184,184,255,1) 100%); 
-    z-index: 500;
-
+  .border-col {
+    border-color: #ffd8beff;
   }
-  #card {
-width: 94%;
-height: 100%;
-border-radius: 0.8em;
-display: flex;
-justify-content: right;
-align-items: center;
-background: linear-gradient(90deg, rgba(112,98,207,1) 0%, rgba(210,205,241,1) 16%, rgba(184,184,255,1) 100%); 
-z-index: 200;
-  }
-#card2 {
-
-    width: 85%;
-    height: 98%;
-    background-color: #FFEEDD;
-    z-index: 1000;  
-  }
-
-#card2 > p:first-child {
-  font-size: 0.6rem;
-  font-weight: 200;
-  font-style: italic;
-}
-#article-content {
-  margin: 0 1rem;
-  font-family: var(--font-article);
-  font-size: 1rem;
-}
-
-.article-content {
-  margin: 0 1rem;
-  font-family: var(--font-article);
-  font-size: 1rem;
-}
-
-
-
-.part {
-  font-size: 0.8rem;
-  font-weight: 600;
-  font-style: italic;
-  height: 100%;
-  margin: auto 0;
-}
-
-.signature {
-  font-family: var(--font-signature);
-  height: 100%;
-  margin: auto 0;
-  font-weight: 600;
-}
-
-#trait {
-
-  width: 90%;
-  margin: 0 auto;
-  height: 0.2rem;
-  /* background: linear-gradient(273deg, rgba(255,216,190,1) 0%, rgba(210,205,241,1) 51%, rgba(255,216,190,1) 100%);  */
-  background: rgb(184,184,255);
-  background: linear-gradient(273deg, rgba(184,184,255,1) 0%, rgba(255,216,190,1) 10%, rgba(204,199,240,1) 51%, rgba(255,216,190,1) 91%, rgba(184,184,255,1) 100%); 
-}
-.mybtn:hover{
-  border: solid 2px rgb(117, 94, 250);
-  /* font-weight: 700; */
-  background-color: rgb(117, 94, 250);;
-  color: white;
-
-}
-
-.mybtn {
-  border: solid 2px rgb(117, 94, 250);
-  background-color: rgb(241, 212, 192);
-  color: rgb(0, 0, 0);
-}
-
-a:hover {
-  text-decoration: underline;
-}
-
-.modal-header {
-  
-  background: linear-gradient(0deg, rgba(184,184,255,1) 0%, rgba(138,129,255,1) 100%); 
-
-}
-
-.couleur-menu {
-  color: #ffd8beff;
-}
-.couleur-menu:ho {
-  color: #ffd8beff;
-}
-
-
-
-
-
-
-
-
-
-
-
 
 
 

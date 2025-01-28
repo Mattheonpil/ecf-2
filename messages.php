@@ -28,19 +28,6 @@ if (isset($_POST['modifier'])) {
   exit();
 }
 
-if (isset($_POST['creer'])) {
-  $newArticle = $_POST['new_article'];
-
-  // Préparation de la requête d'insertion
-  $insert = $bdd->prepare('INSERT INTO article (content, id_user, creation_date) VALUES (:contenu, :id_user, NOW())');
-  $insert->bindParam(':contenu', $newArticle, PDO::PARAM_STR);
-  $insert->bindParam(':id_user', $_SESSION['id_user'], PDO::PARAM_INT);
-  $insert->execute();
-
-  header("Location: " . $_SERVER['PHP_SELF']);
-  exit();
-}
-
 
 ?>
 
@@ -56,24 +43,25 @@ if (isset($_POST['creer'])) {
 </head>
 <body>
 
-<header class= "container-fluid backgrund-sp">
-    <div class="container">
-    <div class= "row pt-3">
-        <div class= "col-8 text-center">
-            <h1 class="fw-bold fst-italic text-white">Polochon & <span class="d-none"><br></span> Couette</h1>
+<header class= "container-fluid">
+    <div class= "container">
+    <div class= "row">
+        <div class= "col-8 text-center ">
+            <h1>Polochon & Couette</h1>
         </div>
-        <div class= "col-4 text-center">
-            <h4 class="pt-1 fst-italic text-white">le 16 janvier 2025</h4>
+        <div class= "col-4 text-center ">
+            <h3>le 16 janvier 2025</h3>
         </div>
     </div>
-    
-     <div id="trait"></div>
+    <div>
+    <hr class="hr hr-blurry border  " />
+    </div>
 
-     <nav class="navbar navbar-expand-lg">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
       <div class="container-fluid">
-        <span class="navbar fs-6 text-color1 text-center">FAITES NOUS PART DE <span class=" d-sm-none"><br></span> VOS SOUVENIRS</span>
+        <h2 class="navbar-brand">FAITES NOUS PART DE VOS SOUVENIRS</h2>
         <button
-          class="navbar-toggler button-myborder"
+          class="navbar-toggler"
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#navbarNav"
@@ -87,147 +75,74 @@ if (isset($_POST['creer'])) {
      
 
        
-        <ul class="navbar-nav w-100 justify-content-end">
+          <ul class="navbar-nav w-100 justify-content-end">
             <li class="nav-item">
-              <a class="nav-link active d-flex justify-content-end text-white" aria-current="page" href="accueil.php">Accueil</a>
+              <a class="nav-link active d-flex justify-content-end" aria-current="page" href="accueil.php">Accueil</a>
             </li>
             <?php if (isset($_SESSION['id_user'])) { ?>
             <li class="nav-item d-flex justify-content-end">
-              <a class="nav-link couleur-menu" href="messages.php">Mes messages</a>
+              <a class="nav-link" href="#">Mes messages</a>
             </li>
             <li class="nav-item d-flex justify-content-end">
-              <a class="nav-link text-white" href="deconnexion.php">Se déconnecter</a>
+              <a class="nav-link" href="deconnexion.php">Se déconnecter</a>
             </li>
             <?php } else { ?>
             <li class="nav-item d-flex justify-content-end">
-              <a class="nav-link text-white" href="connexion.php">Se connecter</a>
+              <a class="nav-link " href="connexion.php">Se connecter</a>
             </li>
             <li class="nav-item d-flex justify-content-end">
-              <a class="nav-link text-white" href="inscription.php">S'inscrire</a>
+              <a class="nav-link " href="inscription.php">S'inscrire</a>
             </li>
             <?php } ?>
           </ul>
         </div>
       </div>
     </nav>
-    </header>
 
-<main class=" text-center">  
- 
-   <div>
-      
+    <main class="container text-center">
 
-      <button type="button" class="btn mybtn mybtn:hover mt-4 w-50 text-center" data-bs-toggle="modal" data-bs-target="#createArticleModal">
-    Créer un nouvel article
-</button>
-</div>
-<div class=" container justify-content-center">
+    
+      <section class="row">
 
-<div class="row">
+      <h2>Tous mes messages</h2>
+<?php
+ while ($row = $requ->fetch(PDO::FETCH_ASSOC)) {
+?>
 
-<?php while ($row = $requ->fetch(PDO::FETCH_ASSOC)) { ?>
+<div class="col">
+          <article>
+          <p><?=$row['date_aff'] ?></p>
+            <p><?=$row['content'] ?></p>
+            <div>
+              <p><?=$_SESSION['fname'] ?></p>
+              <p><?=$_SESSION['name'] ?></p>
+            </div>
+          </article>
+          <form method="post"  action="">
+          <button type="submit" name="bmod" value="<?=$row['id_article'] ?>" class="btn btn-outline-primary">Modifier</button>
 
- 
-      <article class="col-md-6 col-xl-4">
-         <div class=" d-flex justify-content-center pt-5 ">
-            <div id="card0">
-                <div id="card" class="shadow">
-                    <div id="card2" class="rounded-1 overflow-auto">
-                            <p class="p-1 text-start"><?=$row['date_aff'] ?></p>
-                            <p class= "article-content"><?=$row['content'] ?></p>
-                            <div class="d-flex justify-content-center p-2">
-                            <p class=" pe-2 part">De la part de </p>
-                                <p class=" pe-2 part signature"><?=$_SESSION['fname'] ?></p>
-                                <p class="signature"><?=$_SESSION['name'] ?></p>
-                            </div>
-                    </div>
+
+          <button type="submit" name="bsuppr" value="<?=$row['id_article'] ?>" class="btn btn-outline-secondary">Supprimer</button>
+    </div>
+          <?php if (isset($_POST['bmod']) && $_POST['bmod'] == $row['id_article']) { ?>
+                <div class="col">
+                <article>
+                    <form method="post" action="">
+                        <input type="hidden" name="id_article" value="<?= $row['id_article'] ?>">
+                        <textarea rows = 10  cols=50 name="nouveau_contenu" required><?= htmlspecialchars($row['content']) ?></textarea>
+                        <button type="submit" name="modifier" class="btn btn-outline-success">Enregistrer les modifications</button>
+                    </form>
+                    </article>
                 </div>
-            </div>
-        </div>
-                          <div class=" mt-3 d-flex justify-content-center ">
-                            <button type="button" 
-                                    class="btn mybtn mybtn:hover me-2 "  
-                                    data-bs-toggle="modal" 
-                                    data-bs-target="#staticBackdrop"
-                                    data-id="<?=$row['id_article']?>" 
-                                    data-content="<?=htmlspecialchars($row['content'])?>">Modifier</button>
-
-                            <form method="post" action="">
-                            <button type="submit" name="bsuppr" value="<?=$row['id_article'] ?>" class="btn mybtn mybtn:hover ms-2 btn-outline-secondary">Supprimer</button>
-                            </form>
-                         </div>
-       </article>
+                
                 <?php } ?>
-</div>
-<!-- Modal créer-->
-<div class="modal fade" id="createArticleModal" tabindex="-1" aria-labelledby="createArticleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="createArticleModalLabel">Créer un nouvel article</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form method="post" action="">
-                    <textarea rows="5" cols="50" name="new_article" required></textarea>
-                    <div class="modal-footer ">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-                        <button type="submit" name="creer" class="btn mybtn mybtn:hover">Créer</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
+                <?php } ?>
 
+      </section>
 
-
-
-
-      
-           
-
-        <!-- Modal modifier -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="staticBackdropLabel">Modifier l'article</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body text-center">
-                <form method="post" action="">
-                    <input type="hidden" name="id_article" id="modal_id_article" value="">
-                    <textarea rows="10" cols="60" name="nouveau_contenu" id="modal_nouveau_contenu" required></textarea>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-                <button type="submit" name="modifier" class="btn mybtn mybtn:hover">Enregistrer les modifications</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div></div>
-
-   
     </main>
-
-        <script>
-            const exampleModal = document.getElementById('staticBackdrop');
-            exampleModal.addEventListener('show.bs.modal', event => {
-                const button = event.relatedTarget;
-                const id = button.getAttribute('data-id');
-                const content = button.getAttribute('data-content');
-
-                const modalIdInput = staticBackdrop.querySelector('#modal_id_article');
-                const modalContentTextarea = staticBackdrop.querySelector('#modal_nouveau_contenu');
-
-                modalIdInput.value = id;
-                modalContentTextarea.value = content;
-            });
-        </script>
-    </div>
-
+    
+</header>
 
 
   
